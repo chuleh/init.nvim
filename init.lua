@@ -62,14 +62,12 @@ vim.opt.scrolloff = 10
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
--- Quit no save
-vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>')
-
 -- Save
-vim.keymap.set('n', '<leader>w', '<cmd>w!<CR>')
-
+vim.keymap.set('n', '<leader>w', '<cmd>w!<CR>', { desc = 'Save' })
 -- Save and quit
-vim.keymap.set('n', '<leader>x', '<cmd>wq!<CR>')
+vim.keymap.set('n', '<leader>x', '<cmd>wq!<CR>', { desc = 'Save and quit' })
+-- Quit no save
+vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', { desc = 'Quit no save' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -737,13 +735,13 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
+    -- 'folke/tokyonight.nvim',
+    'morhetz/gruvbox',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'gruvbox'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -790,13 +788,26 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+
+  { -- NERDtree etc
+    'preservim/nerdtree',
+    'Xuyuanp/nerdtree-git-plugin',
+    'tiagofumo/vim-nerdtree-syntax-highlight',
+
+    NERDTreeGitStatusUseNerdFonts = 1,
+    WebDevIconsOS = 'Darwin',
+    WebDevIconsUnicodeDecorateFolderNodes = 1,
+    DevIconsEnableFoldersOpenClose = 1,
+    DevIconsEnableFolderExtensionPatternMatching = 1,
+  },
+
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'python', 'hcl', 'yaml' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -804,7 +815,7 @@ require('lazy').setup({
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
+        additional_vim_regex_highlighting = { 'ruby', 'python', 'hcl' },
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
