@@ -789,25 +789,29 @@ require('lazy').setup({
     end,
   },
 
-  { -- NERDtree etc
-    'preservim/nerdtree',
-    'Xuyuanp/nerdtree-git-plugin',
-    'tiagofumo/vim-nerdtree-syntax-highlight',
-
-    NERDTreeGitStatusUseNerdFonts = 1,
-    WebDevIconsOS = 'Darwin',
-    WebDevIconsUnicodeDecorateFolderNodes = 1,
-    DevIconsEnableFoldersOpenClose = 1,
-    DevIconsEnableFolderExtensionPatternMatching = 1,
-  },
-
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'python', 'hcl', 'yaml' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'python',
+        'hcl',
+        'yaml',
+        'dockerfile',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -815,7 +819,7 @@ require('lazy').setup({
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby', 'python', 'hcl' },
+        additional_vim_regex_highlighting = { 'ruby', 'python', 'hcl', 'dockerfile' },
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
@@ -839,8 +843,10 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.autopairs',
+  -- Neotree
+  require 'kickstart.plugins.neo-tree',
+  vim.keymap.set('n', '<leader>n', '<cmd>Neotree<CR>', { desc = 'Open Neotree' }),
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
