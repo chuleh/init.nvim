@@ -142,13 +142,86 @@ require('lazy').setup({
     opts = {
       signs = {
         add = { text = '+' },
-        change = { text = '~' },
+        change = { text = '┃' },
         delete = { text = '_' },
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
+        untracked = { text = '┆' },
       },
+      signs_staged = {
+        add = { text = '+' },
+        change = { text = '┃' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked = { text = '┆' },
+      },
+      signs_staged_enable = true,
+      signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+      numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+      linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+      word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+
+      watch_gitdir = {
+        follow_files = true,
+      },
+
+      auto_attach = true,
+      attach_to_untracked = false,
+      current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
     },
   },
+
+  --  {
+  --    'yetone/avante.nvim',
+  --    event = 'VeryLazy',
+  --    lazy = false,
+  --    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+  --    opts = {
+  --      -- add any opts here
+  --    },
+  --    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+  --    build = 'make',
+  --    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+  --    dependencies = {
+  --      'stevearc/dressing.nvim',
+  --      'nvim-lua/plenary.nvim',
+  --      'MunifTanjim/nui.nvim',
+  --      --- The below dependencies are optional,
+  --      'echasnovski/mini.pick', -- for file_selector provider mini.pick
+  --      'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
+  --      'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
+  --      'ibhagwan/fzf-lua', -- for file_selector provider fzf
+  --      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+  --      'zbirenbaum/copilot.lua', -- for providers='copilot'
+  --      {
+  --        -- support for image pasting
+  --        'HakonHarnes/img-clip.nvim',
+  --        event = 'VeryLazy',
+  --        opts = {
+  --          -- recommended settings
+  --          default = {
+  --            embed_image_as_base64 = false,
+  --            prompt_for_file_name = false,
+  --            drag_and_drop = {
+  --              insert_mode = true,
+  --            },
+  --            -- required for Windows users
+  --            use_absolute_path = true,
+  --          },
+  --        },
+  --      },
+
+  --      {
+  --        -- Make sure to set this up properly if you have lazy=true
+  --        'MeanderingProgrammer/render-markdown.nvim',
+  --        opts = {
+  --          file_types = { 'markdown', 'Avante' },
+  --        },
+  --        ft = { 'markdown', 'Avante' },
+  --      },
+  --    },
+  --  },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -214,7 +287,6 @@ require('lazy').setup({
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
-        -- { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
@@ -297,16 +369,16 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+      -- vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+      -- vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+      -- vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
