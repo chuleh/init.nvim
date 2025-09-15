@@ -55,6 +55,8 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+vim.opt.termguicolors = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -62,6 +64,9 @@ vim.opt.scrolloff = 10
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Tab navigation for buffers (similar to Cmd+Tab on macOS)
+vim.keymap.set('n', '<Tab>', ':bnext<CR>', { desc = 'Next buffer', silent = true })
+vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { desc = 'Previous buffer', silent = true })
 -- Save
 vim.keymap.set('n', '<leader>w', '<cmd>w!<CR>', { desc = 'Save' })
 -- Save and quit
@@ -253,6 +258,66 @@ require('lazy').setup({
     },
   },
 
+  { -- Buff/Tabline
+    'akinsho/bufferline.nvim',
+    version = '*',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      local bufferline = require 'bufferline'
+      bufferline.setup {
+        options = {
+          mode = 'buffers',
+          -- exclude nvim-tree and other special buffers from bufferline
+          custom_filter = function(buf_number, buf_numbers)
+            -- filter out by buffer name
+            local buf_name = vim.fn.bufname(buf_number)
+            if buf_name:match '.*neo%-tree.*' then
+              return false
+            end
+            -- Filter out by filetype
+            local filetype = vim.fn.getbufvar(buf_number, '&filetype')
+            if filetype == 'neo-tree' then
+              return false
+            end
+            -- filter out other special filetypes
+            local excluded_filetypes = {
+              'neo-tree',
+              'NvimTree',
+              'help',
+              'terminal',
+              'quickfix',
+              'fugitive',
+              'gitcommit',
+              'packer',
+              'lazy',
+            }
+            for _, ft in ipairs(excluded_filetypes) do
+              if filetype == ft then
+                return false
+              end
+            end
+            return true
+          end,
+          -- Offsets for neo-tree
+          offsets = {
+            {
+              filetype = 'neo-tree',
+              text = 'Files',
+              text_align = 'left',
+              separator = true,
+            },
+          },
+          -- Ensure bufferline doesn't show in neo-tree window
+          show_buffer_icons = true,
+          show_buffer_close_icons = true,
+          show_close_icon = true,
+          show_tab_indicators = true,
+          separator_style = 'slant',
+        },
+      }
+    end,
+  },
+
   -- NOTE: Plugins can specify dependencies.
   --
   -- The dependencies are proper plugin specifications as well - anything
@@ -378,7 +443,9 @@ require('lazy').setup({
       },
     },
   },
+
   { 'Bilal2453/luvit-meta', lazy = true },
+
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
