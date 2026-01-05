@@ -152,8 +152,7 @@ require('lazy').setup({
     'xTacobaco/cursor-agent.nvim',
     config = function()
       vim.keymap.set('n', '<leader>aa', ':CursorAgent<CR>', { desc = 'Cursor Agent: Toggle terminal' })
-      vim.keymap.set('v', '<leader>sa', ':CursorAgentSelection<CR>', { desc = 'Cursor Agent: Send selection' })
-      vim.keymap.set('n', '<leader>CA', ':CursorAgentBuffer<CR>', { desc = 'Cursor Agent: Send buffer' })
+      vim.keymap.set('n', '<leader>ab', ':CursorAgentBuffer<CR>', { desc = 'Cursor Agent: Send buffer' })
     end,
   },
 
@@ -505,7 +504,7 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+          -- ap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
