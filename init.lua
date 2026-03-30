@@ -51,8 +51,23 @@ vim.keymap.set('n', '<Tab>', ':bnext<CR>', { desc = 'Next buffer', silent = true
 vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { desc = 'Previous buffer', silent = true })
 vim.keymap.set('n', '<leader>w', '<cmd>w!<CR>', { desc = 'Save' })
 vim.keymap.set('n', '<leader>x', '<cmd>wq!<CR>', { desc = 'Save and quit' })
+vim.keymap.set('n', '<leader>tw', function()
+  vim.cmd 'w!'
+  if vim.fn.tabpagenr '$' > 1 then
+    vim.cmd 'tabclose'
+  else
+    vim.cmd 'bdelete!'
+  end
+end, { desc = 'Save and close tab' })
 vim.keymap.set('n', '<leader>q', '<cmd>q!<CR>', { desc = 'Quit no save' })
 vim.keymap.set('n', '<leader>qa', '<cmd>qa!<CR>', { desc = 'Quit no save all files' })
+vim.keymap.set('n', '<leader>tq', function()
+  if vim.fn.tabpagenr '$' > 1 then
+    vim.cmd 'tabclose'
+  else
+    vim.cmd 'bdelete!'
+  end
+end, { desc = 'Close current tab' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
