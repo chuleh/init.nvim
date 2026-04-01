@@ -1,13 +1,15 @@
+-- supress warning
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+
 -- Set <space> as the leader key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 vim.g.have_nerd_font = true
 
+-- opts
 vim.opt.number = true
-
 vim.opt.mouse = 'a'
-
 vim.opt.showmode = false
 
 vim.schedule(function()
@@ -15,30 +17,19 @@ vim.schedule(function()
 end)
 
 vim.opt.breakindent = true
-
 vim.opt.undofile = true
-
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
 vim.opt.signcolumn = 'yes'
-
 vim.opt.updatetime = 250
-
 vim.opt.timeoutlen = 300
-
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-
 vim.opt.inccommand = 'split'
-
 vim.opt.cursorline = true
-
 vim.opt.scrolloff = 10
-
 vim.opt.termguicolors = true
 
 -- [[ Basic Keymaps ]]
@@ -976,6 +967,7 @@ require('lazy').setup({
   -- Or use telescope!
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
+  rocks = { enabled = false },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
