@@ -653,9 +653,26 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'tflint',
-        'hadolint',
         'ruff',
         'rubocop',
+        'docker-compose-language-service',
+        'docker-language-server',
+        'dockerfile-language-server',
+        'lua-language-server',
+        'terraform',
+        'terraform-ls',
+        'hclfmt',
+        'dotenv-linter',
+        'gh-actions-language-server',
+        'kube-linter',
+        'lua-language-server',
+        'python-lsp-server',
+        'rubocop',
+        'ruby-lsp',
+        'rubyfmt',
+        'tflint',
+        'yaml-language-server',
+        'hadolint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

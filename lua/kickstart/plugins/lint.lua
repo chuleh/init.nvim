@@ -12,6 +12,8 @@ return {
         dockerfile = { 'hadolint' },
         python = { 'ruff' },
         ruby = { 'rubocop' },
+        dotenv = { 'dotenv-linter' },
+        kubernetes = { 'kube-linter' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
