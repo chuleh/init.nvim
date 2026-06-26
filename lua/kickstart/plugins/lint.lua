@@ -58,7 +58,17 @@ return {
           -- avoid superfluous noise, notably within the handy LSP pop-ups that
           -- describe the hovered symbol using Markdown.
           if vim.opt_local.modifiable:get() then
-            lint.try_lint()
+            -- ponytail: only run linters whose binary is installed, else nvim-lint throws ENOENT
+            local names = lint.linters_by_ft[vim.bo.filetype] or {}
+            local available = {}
+            for _, name in ipairs(names) do
+              local linter = lint.linters[name]
+              local cmd = type(linter) == 'table' and linter.cmd or name
+              if vim.fn.executable(cmd) == 1 then
+                table.insert(available, name)
+              end
+            end
+            lint.try_lint(available)
           end
         end,
       })
